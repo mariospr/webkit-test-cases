@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Case</title>
+<link href="stylesheet.css" rel="stylesheet">
+<style>
+body { background: #ababab; }
+div { display: none; }
+#title1 {
+    -webkit-transform: rotateX(150deg);
+    transform: rotateX(150deg);
+}
+
+#title2 {
+    -webkit-transform: rotateY(150deg);
+    transform: rotateY(150deg);
+}
+
+#image {
+    float: left;
+    background-image: url('image.png');
+    height: 66px;
+    width: 66px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Uncomment the following line to force AC to stay on all the time -->
+<!-- <div class="acEnabler" style="display: block; -webkit-transform: rotateX(0deg); -transform: rotateX(0deg)">asdfasfasdfasdfa</div> -->
+
+<div id="title1" class="title step1">This is the first step</div>
+<div id="image" class="image step1"></div>
+
+<div id="title2" class="title step2">And this is the last one</div>
+
+<script language="JavaScript">
+var defaultTimeout = 100;
+
+function enterStep(step) {
+    var elements = document.getElementsByClassName(step);
+    for (i = 0; i < elements.length; ++i) {
+        console.log("Element ID: " + elements[i].id);
+        elements[i].style.display = 'block';
+    }
+}
+
+function leaveStep(step) {
+    var elements = document.getElementsByClassName(step);
+    for (i = 0; i < elements.length; ++i) {
+        console.log("Element ID: " + elements[i].id);
+        elements[i].style.display = 'none';
+    }
+}
+
+function enterStep1() {
+    enterStep("step1");
+    window.setTimeout(leaveStep1, defaultTimeout)
+}
+
+function leaveStep1() {
+    leaveStep("step1");
+    window.setTimeout(enterStep2, defaultTimeout)
+}
+
+function enterStep2() {
+    enterStep("step2");
+    window.setTimeout(leaveStep2, defaultTimeout)
+}
+
+function leaveStep2() {
+    leaveStep("step2");
+}
+
+window.setTimeout(enterStep1, 1000)
+</script>
+</body>
+
+</html>
