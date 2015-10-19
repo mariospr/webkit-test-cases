@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<style>
+#testDiv {
+    background-color: #454545;
+    position: absolute;
+}
+
+#testDiv .mask {
+    background-color: blue;
+    border-radius: 50%;
+    overflow: hidden;
+    -webkit-animation: "shrink-mask" 5s;
+}
+
+#testDiv #circle {
+    display: block;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+#testDiv #circle p {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size:2em;
+
+    -webkit-animation: "grow-image" 5s;
+}
+
+@-webkit-keyframes shrink-mask {
+    from { -webkit-transform: scale(1, 1); }
+    to { -webkit-transform: scale(0, 0); }
+}
+
+@-webkit-keyframes grow-image {
+    from { -webkit-transform: scale(1, 1); }
+    to { -webkit-transform: scale(4, 4); }
+}
+
+</style>
+</head>
+<body>
+<div id="testDiv">
+  <div class="mask"><div id="circle"><p>text</p></div>
+  </div>
+</div>
+</body>
+</html>
