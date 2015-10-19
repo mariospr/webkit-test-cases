@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<style>
+#moving-block {
+    background-color: #abc;
+    width: 130px;
+
+    transform: translate(400px, 0px);
+    animation: "custom-animation" 2s ease-out;
+    animation-fill-mode: forwards;
+
+    /* For testing in Chrome */
+    -webkit-transform: translate(400px, 0px);
+    -webkit-animation: "custom-animation" 2s ease-out;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes custom-animation {
+  0% {
+      transform: translate(400px, 0px);
+  } 25% {
+      transform: translate(0px, 0px);
+  } 51% {
+      transform: translate(250px, 0px);
+  } 100% {
+      transform: translate(100px, 0px);
+  }
+}
+
+</style>
+</head>
+<body>
+<p>This test checks that a multiple-stage animation will honour <em>animation-fill-mode = forwards</em>, by leaving the values of the 100% keyframe properly applied once the animation is finished.</p>
+
+<div id="moving-block">Moving block</div>
+</body>
+</html>
