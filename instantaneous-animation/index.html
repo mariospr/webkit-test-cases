@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+    animation: "darken-bg" 2s;
+}
+
+.placeholder {
+    font-style: italic;
+
+    /* These three values together are troublesome */
+    animation: "fade-in" 0s;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+}
+
+.works-1 {
+    animation-delay: 0s;
+}
+
+.works-2 {
+    animation-fill-mode: none;
+}
+
+.works-3 {
+    animation-duration: 0.00000001s;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes darken-bg {
+  from { background-color: #fff; }
+  to { background-color: #777; }
+}
+</style>
+</head>
+<body>
+<p>This tests that an animation with a non-zero <em>animation-delay</em> and <em>animation-fill-mode = forwards</em> will keep the value specified at the 100% keyframe, even if the animation was instantaneous.</p>
+
+<p> The placeholder text below should NEVER dissapear (but it does!):</p>
+<div class="placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+<br>
+<p> The placeholder text below won't dissapear because of using a zero-value for <em>animation-delay</em>:</p>
+<div class="placeholder works-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+<br>
+<p> The placeholder text below won't dissapear because of using <em>animation-fill-mode = none</em>:</p>
+<div class="placeholder works-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+<br>
+<p> The placeholder text below won't dissapear because of a non-zero value for <em>animation-duration</em>:</p>
+<div class="placeholder works-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+</body>
+</html>
