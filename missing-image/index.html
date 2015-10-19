@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+    animation: "darken-bg" 2s;
+}
+
+.button {
+    background-image: url('test-image.png');
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 100px;
+}
+
+.bug {
+    animation: "fade-in" 0;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+}
+
+.works-1 {
+    animation: "fade-in" 0;
+    animation-delay: 2s;
+    animation-fill-mode: none;
+}
+
+.works-2 {
+    animation: "fade-in" 0.0000000001;
+    animation-delay: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes darken-bg {
+  from { background-color: #fff; }
+  to { background-color: #777; }
+}
+</style>
+</head>
+<body>
+<p>This test checks that an animation with <em>animation-fill-mode = forwards</em> will retain the value specified at the 100% keyframe, even if the animation was instantaneous.</p>
+
+<p> The red circle below should NEVER dissapear:</p>
+<div class="button bug"></div>
+
+<p> The red circle below won't dissapear because of using <em>animation-fill-mode = none</em>:</p>
+<div class="button works-1"></div>
+
+<p> The red circle below won't dissapear because of a non-zero value for <em>animation-duration</em>:</p>
+<div class="button works-2"></div>
+</body>
+</html>
