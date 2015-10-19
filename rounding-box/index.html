@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<style>
+#testDiv {
+    background-color: #454545;
+    position: absolute;
+}
+
+#testDiv .mask {
+    background-color: blue;
+    border-radius: 50%;
+    overflow: hidden;
+    -webkit-animation: "shrink-mask" 5s;
+}
+
+#testDiv img {
+    -webkit-animation: "grow-image" 5s;
+}
+
+@-webkit-keyframes shrink-mask {
+    from { -webkit-transform: scale(1, 1); }
+    to { -webkit-transform: scale(0, 0); }
+}
+
+@-webkit-keyframes grow-image {
+    from { -webkit-transform: scale(1, 1); }
+    to { -webkit-transform: scale(4, 4); }
+}
+
+</style>
+</head>
+<body>
+<div id="testDiv">
+  <div class="mask">
+    <img src="test-image.png">
+  </div>
+</div>
+</body>
+</html>
