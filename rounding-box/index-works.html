@@ -43,6 +43,12 @@
 </style>
 </head>
 <body>
+<p>
+  This test case checks whether applying two different animations
+  inside a DIV where a mask using overflow:hidden gets steadily shrunk
+  while the CSS-GENERATED CONTENT gets scaled up at the same pace shows
+  any artifacts (e.g. lines from the masking element's rounding box).
+</p>
 <div id="testDiv">
   <div class="mask"><div id="circle"><p>text</p></div>
   </div>
