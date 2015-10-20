@@ -5,7 +5,7 @@ html, body {
     background: #777;
 }
 
-#horizontal-bg {
+#visible-bg {
     background: green;
     position: absolute;
     top: 6px;
@@ -35,7 +35,7 @@ html, body {
     -webkit-animation-delay: 1.9125s;
 }
 
-#circular-bg {
+#dummy-bg {
     -webkit-animation: "shrink" 0.85s;
 
     /* Notice that 2.7625 = 1.9125 + 0.85. Changing this delay
@@ -55,10 +55,10 @@ html, body {
     <div style="display: block; -webkit-transform: rotateX(0deg);">
       This div ensures AC stays enabled all the time
     </div>
-    <div id="horizontal-bg" />
+    <div id="visible-bg" />
     <div id="mask">
         <img src="test-image.png">
     </div>
-    <div id="circular-bg" />
+    <div id="dummy-bg" />
   </body>
 </html>
