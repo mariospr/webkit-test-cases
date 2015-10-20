@@ -1,48 +1,49 @@
 <html>
 <head>
 <style>
-html, body {
-    background: #777;
-}
-
 #visible-bg {
     background: green;
     position: absolute;
-    top: 6px;
+    top: 16px;
     height: 6px;
     width: 100%;
 }
 
-#mask {
+#testDiv {
     position: absolute;
     top: 0;
     height: 150px;
     width: 150px;
+
+    /* Not using overflow: hidden prevents the glitch */
     overflow: hidden;
 
     -webkit-animation: "shrink" 0.85s;
-    -webkit-animation-delay: 1.9125s;
+    -webkit-animation-delay: 0.15s;
+
+    /* Using a different fill-mode here prevents the glitch,
+       although it would obviously cause different end results.*/
     -webkit-animation-fill-mode: forwards;
 }
 
-#mask img {
+#testDiv img {
     position: absolute;
     top: 0;
     width: 150px;
     height: 150px;
 
     -webkit-animation: "shrink" 0.85s;
-    -webkit-animation-delay: 1.9125s;
+    -webkit-animation-delay: 0.15s;
 }
 
 #dummy-bg {
     -webkit-animation: "shrink" 0.85s;
 
-    /* Notice that 2.7625 = 1.9125 + 0.85. Changing this delay
-       to something like 2.7725 make the flickering go away in
-       my case, so it could be a race condition when the other
-       two animations finish and this one starts. */
-    -webkit-animation-delay: 2.7625s;
+    /* Notice that 1s = 0.85s + 0.15s, so that this animation starts when
+       the previous ones finish. Changing this delay to something like 1.1s
+       makes the flickering go away in my case, so it could be a race condition
+       happening when the other two animations finish and this one starts. */
+    -webkit-animation-delay: 1s;
 }
 
 @-webkit-keyframes shrink {
@@ -52,11 +53,41 @@ html, body {
 </style>
 </head>
   <body>
+    <!-- Applying a 3D CSS Transformation (even if it does nothing) ensures -->
+    <!-- that Accelerated Compositing Mode is enabled during the whole test. -->
     <div style="display: block; -webkit-transform: rotateX(0deg);">
-      This div ensures AC stays enabled all the time
+      <p>
+        THIS TEXT IS NOT MEANT TO BE READ BUT TO BE STRIKED OUT BY THE GREEN LINE
+      </p>
+      <p>
+        This test shows a problem happening when AC is enabled AND we have 3 animations
+        where 2 of them happen SIMULTANEOUSLY and a 3rd one starts EXACTLY when the other
+        2 animations finish:
+      </p>
+      <p>
+        The WEBVIEW seems to FLICKER for a split second when the third animation starts,
+        showing it COMPLETELY RENDERED with the same colour of the #visible-bg DIV
+        element's background.
+      </p>
+      <p>
+        For some reason, it also seems to be relevant for the glitch to happen that the
+        two initial animations start with a certain delay (no delay won't cause the glitch)
+        AND that the #testDiv style defines both <em>overflow: hidden</em> and
+        <em>animation-fill-mode = forwards</em>.
+      </p>
+      <p>
+        Last, it also seems to be relevant that the first two DIVS use ABSOLUTE (or fixed)
+        positioning, and that the GREEN background rendered by #visible-bg is drawn right on
+        top of of some text, as positioning the green background so that it does not cover any
+        text does not cause the glitch either.
+      </p>
+      <p>
+        <b>NOTE</b>: This does NOT happen EVERY TIME, but quite often instead, meaning that you
+        might NEED TO REFRESH your webview a few times before actually seeing the glitch.
+      </p>
     </div>
     <div id="visible-bg" />
-    <div id="mask">
+    <div id="testDiv">
         <img src="test-image.png">
     </div>
     <div id="dummy-bg" />
