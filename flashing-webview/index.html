@@ -1,0 +1,64 @@
+<html>
+<head>
+<style>
+html, body {
+    background: #777;
+}
+
+#horizontal-bg {
+    background: green;
+    position: absolute;
+    top: 6px;
+    height: 6px;
+    width: 100%;
+}
+
+#mask {
+    position: absolute;
+    top: 0;
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+
+    -webkit-animation: "shrink" 0.85s;
+    -webkit-animation-delay: 1.9125s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+#mask img {
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 150px;
+
+    -webkit-animation: "shrink" 0.85s;
+    -webkit-animation-delay: 1.9125s;
+}
+
+#circular-bg {
+    -webkit-animation: "shrink" 0.85s;
+
+    /* Notice that 2.7625 = 1.9125 + 0.85. Changing this delay
+       to something like 2.7725 make the flickering go away in
+       my case, so it could be a race condition when the other
+       two animations finish and this one starts. */
+    -webkit-animation-delay: 2.7625s;
+}
+
+@-webkit-keyframes shrink {
+    from { -webkit-transform: scale(1, 1); }
+    to { -webkit-transform: scale(0, 0); }
+}
+</style>
+</head>
+  <body>
+    <div style="display: block; -webkit-transform: rotateX(0deg);">
+      This div ensures AC stays enabled all the time
+    </div>
+    <div id="horizontal-bg" />
+    <div id="mask">
+        <img src="test-image.png">
+    </div>
+    <div id="circular-bg" />
+  </body>
+</html>
